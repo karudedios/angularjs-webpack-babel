@@ -15,6 +15,10 @@ module.exports = (_env, argv = {}) => {
     // TODO: consider a separate `webpack.dev.js` and `webpack.build.js` files, etc, that import a shared base config
 
     return {
+        entry: {
+            app: path.resolve('src', 'index.js'),
+            vendor: path.resolve('src', 'vendor.js'),
+        },
         devtool: 'source-map',
         devServer: {
             hot: true,
@@ -75,6 +79,18 @@ module.exports = (_env, argv = {}) => {
                     use: [
                         {
                             loader: 'babel-loader',
+                        },
+                    ],
+                },
+                {
+                    test: /\.(eot|svg|ttf|woff|woff2)$/,
+                    use: [
+                        {
+                            loader: 'file-loader',
+                            options: {
+                                name: '[name].[ext]',
+                                outputPath: 'fonts/'
+                            }
                         },
                     ],
                 },
